@@ -11,7 +11,7 @@ namespace ConsoleApp1
 {
     public class StudentFactory
     {
-        public ArrayList _arrayList;
+        private List<Student> _list = new List<Student>();
 
         // 18개
         private readonly int[] _studentNumbersInts =
@@ -133,7 +133,6 @@ namespace ConsoleApp1
 
         public void InitList()
         {
-            _arrayList = new ArrayList();
 
             Console.WriteLine($"{_studentNumbersInts.Length}, " +
                               $"{_phoneNumbers.Length}, " +
@@ -155,7 +154,7 @@ namespace ConsoleApp1
                     Major = _majors[i]
                 };
 
-                _arrayList.Add(temp);
+                _list.Add(temp);
             }
         }
 
@@ -171,14 +170,30 @@ namespace ConsoleApp1
                 Major = major
             };
 
-            _arrayList.Add(temp);
+            _list.Add(temp);
 
-            Console.WriteLine("학생 추가함 || 인원: {0}", _arrayList.Count);
+            Console.WriteLine("학생 추가함 || 인원: {0}", _list.Count);
         }
 
         public void ShowAllStudent()
         {
-            _arrayList.ToArray().ToObservable().Subscribe(Console.WriteLine);
+            _list.ToArray().ToObservable().Subscribe(Console.WriteLine);
+        }
+
+        public Student SearchStudent(int inputNumber)
+        {
+            Student temp = null;
+            Console.WriteLine($"학생 검색!! 입력 받은 번호 : {inputNumber}");
+            var seq = _list.ToArray().ToObservable();
+
+            var source =
+                from student in seq
+                where student.StudentNumber == inputNumber
+                select student;
+
+            source.Subscribe(x => { temp = x; });
+   
+            return temp;
         }
 
     }

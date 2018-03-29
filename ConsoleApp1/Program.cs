@@ -17,6 +17,8 @@ namespace ConsoleApp1
 
             studentFactory.AddStudent(3, "2", "33", "44", "555");
             studentFactory.ShowAllStudent();
+            var searchStudent = studentFactory.SearchStudent(20181209);
+            Console.WriteLine(searchStudent);
         }
     }
 }
