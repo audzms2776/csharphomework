@@ -157,9 +157,21 @@ namespace ConsoleApp1
             }
         }
 
-        public void AddStudent()
+        public void AddStudent(int studentNumber, string phoneNumber, string email, string name,
+            string major)
         {
+            var temp = new Student
+            {
+                StudentNumber = studentNumber,
+                PhoneNumber = phoneNumber,
+                Email = email,
+                Name = name,
+                Major = major
+            };
 
+            _arrayList.Add(temp);
+
+            Console.WriteLine("학생 추가함 || 인원: {0}", _arrayList.Count);
         }
 
     }
