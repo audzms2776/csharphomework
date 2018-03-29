@@ -25,5 +25,11 @@ namespace ConsoleApp1
         public string Name { get; set; }
 
         public string Major { get; set; }
+
+        public override string ToString()
+        {
+            return $"전공: {Major} | 학번: {StudentNumber} | 이름: {Name}" +
+                   $" | 이메일: {Email} | 폰 번호 : {PhoneNumber} |";
+        }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -172,6 +174,11 @@ namespace ConsoleApp1
             _arrayList.Add(temp);
 
             Console.WriteLine("학생 추가함 || 인원: {0}", _arrayList.Count);
+        }
+
+        public void ShowAllStudent()
+        {
+            _arrayList.ToArray().ToObservable().Subscribe(Console.WriteLine);
         }
 
     }

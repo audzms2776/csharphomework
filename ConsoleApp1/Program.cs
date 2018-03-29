@@ -13,19 +13,10 @@ namespace ConsoleApp1
     {
         private static void Main(string[] args)
         {
-            var sourceObservable = Observable.Range(1, 5);
-            
-            var subscriber = sourceObservable.Subscribe(
-                x => Console.WriteLine("OnNext: {0}", x),
-                ex => Console.WriteLine("OnError: {0}", ex.Message),
-                () => Console.WriteLine("OnCompleted"));
-
-            subscriber.Dispose();
-
             var studentFactory = new StudentFactory();
 
-
-
+            studentFactory.AddStudent(3, "2", "33", "44", "555");
+            studentFactory.ShowAllStudent();
         }
     }
 }
