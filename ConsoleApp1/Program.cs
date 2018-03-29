@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 
 namespace ConsoleApp1
 {
-    class Program 
+    internal class Program 
     {
         private static void Main(string[] args)
         {
