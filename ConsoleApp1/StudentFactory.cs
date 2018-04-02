@@ -27,7 +27,6 @@ namespace ConsoleApp1
 
         public void InitList()
         {
-
             Console.WriteLine($"{_studentNumbersInts.Length}, " +
                               $"{_phoneNumbers.Length}, " +
                               $"{_emails.Length}, " +
@@ -66,18 +65,29 @@ namespace ConsoleApp1
 
             _list.Add(temp);
 
-            Console.WriteLine("학생 추가함 || 인원: {0}", _list.Count);
+            Console.WriteLine("\n학생 추가함 || 인원: {0}", _list.Count);
+        }
+
+        public void DeleteStudent(string studentNumber)
+        {
+            var studentId = int.Parse(studentNumber);
+            var temp = new Student {StudentNumber = studentId};
+            
+            Console.WriteLine($"\n학생 제거! {studentId} 학생을 제거합니다 \n" +
+                              $"남은 학생 수 : {_list.Count}");
+            _list.Remove(temp);
         }
 
         public void ShowAllStudent()
         {
+            Console.WriteLine("\n학생 목록 출력!");
             _list.ToArray().ToObservable().Subscribe(Console.WriteLine);
         }
 
         public Student SearchStudent(int inputNumber)
         {
             Student temp = null;
-            Console.WriteLine($"학생 검색!! 입력 받은 번호 : {inputNumber}");
+            Console.WriteLine($"\n학생 검색!! 입력 받은 번호 : {inputNumber}");
             var seq = _list.ToArray().ToObservable();
 
             var source =

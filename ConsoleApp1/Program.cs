@@ -15,10 +15,14 @@ namespace ConsoleApp1
         {
             var studentFactory = new StudentFactory();
 
-            studentFactory.AddStudent(3, "2", "33", "44", "555");
-            studentFactory.ShowAllStudent();
-            var searchStudent = studentFactory.SearchStudent(20181209);
-            Console.WriteLine(searchStudent);
+//            studentFactory.AddStudent(3, "2", "33", "44", "555");
+//            studentFactory.ShowAllStudent();
+//            var searchStudent = studentFactory.SearchStudent(20181209);
+//            Console.WriteLine(searchStudent);
+
+            studentFactory.DeleteStudent("20141932");
+            studentFactory.DeleteStudent("20181209");
+
         }
     }
 }

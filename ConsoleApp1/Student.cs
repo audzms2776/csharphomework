@@ -31,5 +31,30 @@ namespace ConsoleApp1
             return $"전공: {Major} | 학번: {StudentNumber} | 이름: {Name}" +
                    $" | 이메일: {Email} | 폰 번호 : {PhoneNumber} |";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var objAsPart = obj as Student;
+
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
+        }
+
+        protected bool Equals(Student other)
+        {
+            return StudentNumber == other.StudentNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            return StudentNumber;
+        }
     }
 }
