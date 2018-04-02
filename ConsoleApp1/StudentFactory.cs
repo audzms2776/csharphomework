@@ -11,7 +11,7 @@ namespace ConsoleApp1
 {
     public class StudentFactory
     {
-        private List<Student> _list = new List<Student>();
+        private List<Student> _list;
         
         private readonly int[] _studentNumbersInts = Constants.StudentNumbersInts;
         private readonly string[] _phoneNumbers = Constants.PhoneNumbers;
@@ -27,6 +27,8 @@ namespace ConsoleApp1
 
         public void InitList()
         {
+            _list = new List<Student>();
+
             Console.WriteLine($"{_studentNumbersInts.Length}, " +
                               $"{_phoneNumbers.Length}, " +
                               $"{_emails.Length}, " +
@@ -78,6 +80,27 @@ namespace ConsoleApp1
             _list.Remove(temp);
         }
 
+        public void EditStudent(string studentNumber)
+        {
+            var studentId = int.Parse(studentNumber);
+
+            Console.WriteLine("\n학생 정보 수정하기");
+            var source =
+                from student in _list
+                where student.StudentNumber == studentId
+                select student;
+
+            foreach (var editStudent in source)
+            {
+                editStudent.Email = "new Email!!";
+                editStudent.PhoneNumber = "new Phone!!";
+                editStudent.Name = "new Name";
+                editStudent.Major = "new Major";
+            }
+
+            Console.WriteLine(SearchStudent(studentId));
+        }
+
         public void ShowAllStudent()
         {
             Console.WriteLine("\n학생 목록 출력!");
@@ -99,6 +122,5 @@ namespace ConsoleApp1
    
             return temp;
         }
-
     }
 }

@@ -20,9 +20,10 @@ namespace ConsoleApp1
 //            var searchStudent = studentFactory.SearchStudent(20181209);
 //            Console.WriteLine(searchStudent);
 
-            studentFactory.DeleteStudent("20141932");
-            studentFactory.DeleteStudent("20181209");
+//            studentFactory.DeleteStudent("20141932");
+//            studentFactory.DeleteStudent("20181209");
 
+            studentFactory.EditStudent("20181209");
         }
     }
 }
