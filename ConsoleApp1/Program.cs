@@ -17,13 +17,16 @@ namespace ConsoleApp1
 
 //            studentFactory.AddStudent(3, "2", "33", "44", "555");
 //            studentFactory.ShowAllStudent();
-//            var searchStudent = studentFactory.SearchStudent(20181209);
-//            Console.WriteLine(searchStudent);
+            var searchStudent = studentFactory.SearchStudent(20181209);
+            Console.WriteLine(searchStudent);
 
 //            studentFactory.DeleteStudent("20141932");
 //            studentFactory.DeleteStudent("20181209");
 
             studentFactory.EditStudent("20181209");
+            studentFactory.AddScholarshipData("20181209");
+
+            Console.WriteLine(searchStudent);
         }
     }
 }

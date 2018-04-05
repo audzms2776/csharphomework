@@ -9,7 +9,7 @@ namespace ConsoleApp1
 {
     public class Student
     {
-        private ArrayList _scholarshipArray = new ArrayList();
+        public readonly ArrayList ScholarshipArray = new ArrayList();
 
         public int StudentNumber { get; set; }
 
@@ -23,8 +23,15 @@ namespace ConsoleApp1
 
         public override string ToString()
         {
-            return $"전공: {Major} | 학번: {StudentNumber} | 이름: {Name}" +
-                   $" | 이메일: {Email} | 폰 번호 : {PhoneNumber} |";
+            var returnStr = $"전공: {Major} - 학번: {StudentNumber} - 이름: {Name}" +
+                            $" - 이메일: {Email} - 폰 번호 : {PhoneNumber} \n";
+
+            foreach (var variable in ScholarshipArray)
+            {
+                returnStr += $"{variable} \n";
+            }
+
+            return returnStr;
         }
 
         public override bool Equals(object obj)
@@ -47,6 +54,11 @@ namespace ConsoleApp1
         public override int GetHashCode()
         {
             return StudentNumber;
+        }
+
+        public void AddScholarship(string shName, string shDate, int shMoney)
+        {
+            ScholarshipArray.Add(new ScholarshipData(shName, shDate, shMoney));
         }
     }
 }

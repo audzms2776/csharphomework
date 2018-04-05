@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -49,6 +50,8 @@ namespace ConsoleApp1
                     Major = _majors[i]
                 };
 
+                GetScholarshipData(temp);
+
                 _list.Add(temp);
             }
         }
@@ -65,9 +68,40 @@ namespace ConsoleApp1
                 Major = major
             };
 
+            ShowScholarshipDataList();
+            GetScholarshipData(temp);
             _list.Add(temp);
 
             Console.WriteLine("\n학생 추가함 || 인원: {0}", _list.Count);
+        }
+
+        public void ShowScholarshipDataList()
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                Console.WriteLine($"{Constants.ShcolarshipNames[i]} -- {Constants.ShcolarshipDates[i]} -- {Constants.ShcolarshipMoneys[i]} \n");
+            }
+        }
+
+        public void AddScholarshipData(string studentNumber)
+        {
+            var studentId = int.Parse(studentNumber);
+            var tempStudent = SearchStudent(studentId);
+//            ShowScholarshipDataList();
+            
+            GetScholarshipData(tempStudent);
+        }
+
+        public void GetScholarshipData(Student tempStudent)
+        {
+            // TODO
+            // 나중에 선택할 수 있는 기능 넣어야함
+            var choiceIdx = 3;
+
+            tempStudent.AddScholarship(
+                Constants.ShcolarshipNames[choiceIdx],
+                Constants.ShcolarshipDates[choiceIdx],
+                Constants.ShcolarshipMoneys[choiceIdx]);
         }
 
         public void DeleteStudent(string studentNumber)
@@ -96,6 +130,8 @@ namespace ConsoleApp1
                 editStudent.PhoneNumber = "new Phone!!";
                 editStudent.Name = "new Name";
                 editStudent.Major = "new Major";
+
+                GetScholarshipData(editStudent);
             }
 
             Console.WriteLine(SearchStudent(studentId));
@@ -122,5 +158,6 @@ namespace ConsoleApp1
    
             return temp;
         }
+
     }
 }
