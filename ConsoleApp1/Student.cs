@@ -11,11 +11,6 @@ namespace ConsoleApp1
     {
         private ArrayList _scholarshipArray = new ArrayList();
 
-        public Student()
-        {
-
-        }
-
         public int StudentNumber { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -35,16 +30,13 @@ namespace ConsoleApp1
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            var objAsPart = obj as Student;
 
-            if (objAsPart == null)
+            if (!(obj is Student objAsPart))
             {
                 return false;
             }
-            else
-            {
-                return Equals(objAsPart);
-            }
+
+            return Equals(objAsPart);
         }
 
         protected bool Equals(Student other)
