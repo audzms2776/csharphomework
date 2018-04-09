@@ -155,9 +155,26 @@ namespace ConsoleApp1
                 select student;
 
             source.Subscribe(x => { temp = x; });
-   
+
             return temp;
         }
 
+        public void ShowAllStatus()
+        {
+            Console.WriteLine($"전체 학생 숫자 : {_list.Count}");
+
+            var sumScholaship = 0;
+
+            foreach (var student in _list)
+            {
+                foreach (var data in student.ScholarshipArray)
+                {
+                    sumScholaship += data.ScholarshipMoney;
+                }
+            }
+
+            Console.WriteLine($"장학금 총액 : {sumScholaship}");
+            Console.WriteLine($"평균 수혜 장학금 {sumScholaship / _list.Count}");
+        }
     }
 }

@@ -15,18 +15,23 @@ namespace ConsoleApp1
         {
             var studentFactory = new StudentFactory();
 
+
+            Console.WriteLine("한남대학교 관리시스템");
+            Console.WriteLine("학생 추가 ");
 //            studentFactory.AddStudent(3, "2", "33", "44", "555");
 //            studentFactory.ShowAllStudent();
-            var searchStudent = studentFactory.SearchStudent(20181209);
-            Console.WriteLine(searchStudent);
+//            var searchStudent = studentFactory.SearchStudent(20181209);
+//            Console.WriteLine(searchStudent);
 
 //            studentFactory.DeleteStudent("20141932");
 //            studentFactory.DeleteStudent("20181209");
 
-            studentFactory.EditStudent("20181209");
+//            studentFactory.EditStudent("20181209");
             studentFactory.AddScholarshipData("20181209");
 
-            Console.WriteLine(searchStudent);
+//            studentFactory.ShowAllStatus();
+
+            studentFactory.ShowAllStudent();
         }
     }
 }
