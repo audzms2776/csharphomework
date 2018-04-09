@@ -9,7 +9,7 @@ namespace ConsoleApp1
 {
     public class Student
     {
-        public readonly ArrayList ScholarshipArray = new ArrayList();
+        public readonly List<ScholarshipData> ScholarshipArray = new List<ScholarshipData>();
 
         public int StudentNumber { get; set; }
 

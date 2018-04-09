@@ -10,18 +10,18 @@ namespace ConsoleApp1
     {
         private readonly string _scholarshipName;
         private readonly string _scholarshipDate;
-        private readonly int _scholarshipMoney;
+        public readonly int ScholarshipMoney;
 
         public ScholarshipData(string scholarshipName, string scholarshipDate, int scholarshipMoney)
         {
             _scholarshipName = scholarshipName;
             _scholarshipDate = scholarshipDate;
-            _scholarshipMoney = scholarshipMoney;
+            ScholarshipMoney = scholarshipMoney;
         }
 
         public override string ToString()
         {
-            return $"{_scholarshipDate} .. {_scholarshipName} .. {_scholarshipMoney}";
+            return $"{_scholarshipDate} .. {_scholarshipName} .. {ScholarshipMoney}";
         }
     }
 }
