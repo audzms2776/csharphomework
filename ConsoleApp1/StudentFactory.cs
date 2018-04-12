@@ -13,12 +13,13 @@ namespace ConsoleApp1
     public class StudentFactory
     {
         private List<Student> _list;
-        
+
         private readonly int[] _studentNumbersInts = Constants.StudentNumbersInts;
         private readonly string[] _phoneNumbers = Constants.PhoneNumbers;
         private readonly string[] _emails = Constants.Emails;
         private readonly string[] _names = Constants.Names;
         private readonly string[] _majors = Constants.Majors;
+        private Random random = new Random();
 
         public StudentFactory()
         {
@@ -30,16 +31,16 @@ namespace ConsoleApp1
         {
             _list = new List<Student>();
 
-            Console.WriteLine($"{_studentNumbersInts.Length}, " +
-                              $"{_phoneNumbers.Length}, " +
-                              $"{_emails.Length}, " +
-                              $"{_names.Length}, " +
-                              $"{_majors.Length}");
+//            Console.WriteLine($"{_studentNumbersInts.Length}, " +
+//                              $"{_phoneNumbers.Length}, " +
+//                              $"{_emails.Length}, " +
+//                              $"{_names.Length}, " +
+//                              $"{_majors.Length}");
         }
 
         public void MakeStudent()
         {
-            for (var i = 0; i < 18; i++)
+            for (var i = 0; i < 10; i++)
             {
                 var temp = new Student
                 {
@@ -50,7 +51,7 @@ namespace ConsoleApp1
                     Major = _majors[i]
                 };
 
-                GetScholarshipData(temp);
+                GetScholarshipData(temp, true);
 
                 _list.Add(temp);
             }
@@ -69,7 +70,7 @@ namespace ConsoleApp1
             };
 
             ShowScholarshipDataList();
-            GetScholarshipData(temp);
+            GetScholarshipData(temp, false);
             _list.Add(temp);
 
             Console.WriteLine("\n학생 추가함 || 인원: {0}", _list.Count);
@@ -79,7 +80,8 @@ namespace ConsoleApp1
         {
             for (var i = 0; i < 5; i++)
             {
-                Console.WriteLine($"{Constants.ShcolarshipNames[i]} -- {Constants.ShcolarshipDates[i]} -- {Constants.ShcolarshipMoneys[i]} \n");
+                Console.WriteLine(
+                    $"{i + 1}. {Constants.ShcolarshipNames[i]} -- {Constants.ShcolarshipDates[i]} -- {Constants.ShcolarshipMoneys[i]}");
             }
         }
 
@@ -88,15 +90,13 @@ namespace ConsoleApp1
             var studentId = int.Parse(studentNumber);
             var tempStudent = SearchStudent(studentId);
 //            ShowScholarshipDataList();
-            
+
             GetScholarshipData(tempStudent);
         }
 
         public void GetScholarshipData(Student tempStudent)
         {
-            // TODO
-            // 나중에 선택할 수 있는 기능 넣어야함
-            var choiceIdx = 3;
+            var choiceIdx = random.Next(0, 4);
 
             tempStudent.AddScholarship(
                 Constants.ShcolarshipNames[choiceIdx],
@@ -104,17 +104,45 @@ namespace ConsoleApp1
                 Constants.ShcolarshipMoneys[choiceIdx]);
         }
 
+        public void GetScholarshipData(Student tempStudent, int choiceKey)
+        {
+            tempStudent.AddScholarship(
+                Constants.ShcolarshipNames[choiceKey],
+                Constants.ShcolarshipDates[choiceKey],
+                Constants.ShcolarshipMoneys[choiceKey]);
+        }
+
+        public void GetScholarshipData(Student tempStudent, bool isAuto)
+        {
+            if (isAuto)
+            {
+                // TODO
+                // 나중에 선택할 수 있는 기능 넣어야함
+                var choiceIdx = random.Next(0, 4);
+
+                tempStudent.AddScholarship(
+                    Constants.ShcolarshipNames[choiceIdx],
+                    Constants.ShcolarshipDates[choiceIdx],
+                    Constants.ShcolarshipMoneys[choiceIdx]);
+            }
+            else
+            {
+                var tempChoice = Int32.Parse(Console.ReadLine()) - 1;
+                GetScholarshipData(tempStudent, tempChoice);
+            }
+        }
+
         public void DeleteStudent(string studentNumber)
         {
             var studentId = int.Parse(studentNumber);
             var temp = new Student {StudentNumber = studentId};
-            
+
+            _list.Remove(temp);
             Console.WriteLine($"\n학생 제거! {studentId} 학생을 제거합니다 \n" +
                               $"남은 학생 수 : {_list.Count}");
-            _list.Remove(temp);
         }
 
-        public void EditStudent(string studentNumber)
+        public void EditStudent(string studentNumber, string phone, string email, string name, string major)
         {
             var studentId = int.Parse(studentNumber);
 
@@ -126,12 +154,12 @@ namespace ConsoleApp1
 
             foreach (var editStudent in source)
             {
-                editStudent.Email = "new Email!!";
-                editStudent.PhoneNumber = "new Phone!!";
-                editStudent.Name = "new Name";
-                editStudent.Major = "new Major";
+                editStudent.Email = email;
+                editStudent.PhoneNumber = phone;
+                editStudent.Name = name;
+                editStudent.Major = major;
 
-                GetScholarshipData(editStudent);
+                GetScholarshipData(editStudent, false);
             }
 
             Console.WriteLine(SearchStudent(studentId));
