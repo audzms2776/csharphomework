@@ -93,7 +93,7 @@ namespace ConsoleApp1
         {
             var studentId = int.Parse(studentNumber);
             var tempStudent = SearchStudent(studentId);
-//            ShowScholarshipDataList();
+//            
 
             GetScholarshipData(tempStudent);
         }
@@ -131,6 +131,7 @@ namespace ConsoleApp1
             }
             else
             {
+                ShowScholarshipDataList();
                 var tempChoice = Int32.Parse(Console.ReadLine()) - 1;
                 GetScholarshipData(tempStudent, tempChoice);
             }
@@ -146,11 +147,25 @@ namespace ConsoleApp1
                               $"남은 학생 수 : {_list.Count}");
         }
 
+        public void AddScholarshiponly(string studentNumber)
+        {
+            var studentId = int.Parse(studentNumber);
+            var source =
+                from student in _list
+                where student.StudentNumber == studentId
+                select student;
+
+            foreach (var editStudent in source)
+            {
+                
+                GetScholarshipData(editStudent, false);
+            }
+        }
+
         public void EditStudent(string studentNumber, string phone, string email, string name, string major)
         {
             var studentId = int.Parse(studentNumber);
-
-            Console.WriteLine("\n학생 정보 수정하기");
+            
             var source =
                 from student in _list
                 where student.StudentNumber == studentId
