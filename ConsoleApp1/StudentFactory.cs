@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +17,7 @@ namespace ConsoleApp1
         private readonly string[] _emails = Constants.Emails;
         private readonly string[] _names = Constants.Names;
         private readonly string[] _majors = Constants.Majors;
-        private Random random = new Random();
+        private readonly Random _random = new Random();
 
         public StudentFactory()
         {
@@ -55,6 +53,12 @@ namespace ConsoleApp1
 
                 _list.Add(temp);
             }
+        }
+
+        public void ShowAllStudentId()
+        {
+            _list.ForEach(s => Console.Write(s.StudentNumber + " / "));
+            Console.WriteLine();
         }
 
         public void AddStudent(int studentNumber, string phoneNumber, string email, string name,
@@ -96,7 +100,7 @@ namespace ConsoleApp1
 
         public void GetScholarshipData(Student tempStudent)
         {
-            var choiceIdx = random.Next(0, 4);
+            var choiceIdx = _random.Next(0, 4);
 
             tempStudent.AddScholarship(
                 Constants.ShcolarshipNames[choiceIdx],
@@ -118,7 +122,7 @@ namespace ConsoleApp1
             {
                 // TODO
                 // 나중에 선택할 수 있는 기능 넣어야함
-                var choiceIdx = random.Next(0, 4);
+                var choiceIdx = _random.Next(0, 4);
 
                 tempStudent.AddScholarship(
                     Constants.ShcolarshipNames[choiceIdx],
@@ -168,21 +172,23 @@ namespace ConsoleApp1
         public void ShowAllStudent()
         {
             Console.WriteLine("\n학생 목록 출력!");
-            _list.ToArray().ToObservable().Subscribe(Console.WriteLine);
+            _list.ForEach(Console.WriteLine);
         }
 
         public Student SearchStudent(int inputNumber)
         {
             Student temp = null;
             Console.WriteLine($"\n학생 검색!! 입력 받은 번호 : {inputNumber}");
-            var seq = _list.ToArray().ToObservable();
 
             var source =
-                from student in seq
+                from student in _list
                 where student.StudentNumber == inputNumber
                 select student;
-
-            source.Subscribe(x => { temp = x; });
+            
+            foreach (var vv in source)
+            {
+                temp = vv;
+            }
 
             return temp;
         }

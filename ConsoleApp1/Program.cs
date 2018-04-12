@@ -49,6 +49,7 @@ namespace ConsoleApp1
                         break;
                     //              2.학생 검색
                     case "2":
+                        studentFactory.ShowAllStudentId();
                         Console.WriteLine("검색할 학번 입력");
                         var studentNumber = Int32.Parse(Console.ReadLine());
                         var searchStudent = studentFactory.SearchStudent(studentNumber);
